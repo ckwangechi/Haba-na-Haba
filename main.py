@@ -32,33 +32,21 @@ def add_income_menu():
     except ValueError:
         print("Invalid input. Please enter a valid number for the amount.")
 
-def update_income_menu(self, income_id, new_amount, new_source, new_date):
+def update_income_menu():
     try:
-        new_amount = float(new_amount)
-        if validate_amount(new_amount):
-            for income in self.data["income"]:
-                if income["id"] == income_id:
-                    income["amount"] = new_amount
-                    income["source"] = new_source
-                    income["date"] = new_date
-                    save_data(self.data)
-                    print("Income updated successfully.")
-                    return
-                print("Income not found.")
+        index = int(input("Income record number: ")) - 1
+        amount = float(input("New amount: "))
+        source = input("New source: ")
+        manager.update_income(index, amount, source)
     except ValueError:
-        print("Invalid input. Please enter a valid number for the amount.")
+        print("Invalid input.")
 
-def delete_income(self, income_id):
-    for income in self.data["income"]:
-        if income["id"] == income_id:
-            self.data["income"].remove(income)
-
-            self.save_data()
-
-            print("Income deleted.")
-            return
-
-    print("Income not found.")
+def delete_income_menu():
+    try:
+        index = int(input("Income record number: ")) - 1
+        manager.delete_income(index)
+    except ValueError:
+        print("Invalid input.")
 
 
 # Expense menu functions
@@ -71,34 +59,22 @@ def add_expense_menu():
     except ValueError:
         print("Invalid input. Please enter a valid number for the amount.")
 
-def update_expense_menu(self, expense_id, new_amount, new_category, new_description, new_date):
+def update_expense_menu():
     try:
-        new_amount = float(new_amount)
-        if validate_amount(new_amount):
-            for expense in self.data["expense"]:
-                if expense["id"] == expense_id:
-                    expense["amount"] = new_amount
-                    expense["category"] = new_category
-                    expense["description"] = new_description
-                    expense["date"] = new_date
-                    save_data(self.data)
-                    print("Expense updated successfully.")
-                    return
-                print("Expense not found.")
+        index = int(input("Expense record number: ")) - 1
+        amount = float(input("New amount: "))
+        category = input("New category: ")
+        description = input("New description: ")
+        manager.update_expense(index, amount, category, description)
     except ValueError:
-        print("Invalid input. Please enter a valid number for the amount.")
+        print("Invalid input.")
 
-def delete_expense(self, expense_id):
-    for expense in self.data["expense"]:
-        if expense["id"] == expense_id:
-            self.data["expense"].remove(expense)
-
-            self.save_data()
-
-            print("Expense deleted.")
-            return
-
-    print("Expense not found.")
+def delete_expense_menu():
+    try:
+        index = int(input("Expense record number: ")) - 1
+        manager.delete_expense(index)
+    except ValueError:
+        print("Invalid input.")
 
 
 # Budget menu functions
@@ -111,73 +87,50 @@ def set_budget_menu():
     except ValueError:
         print("Invalid input. Please enter a valid number for the limit.")
 
-def update_budget_menu(self, budget_id, new_amount, new_category, new_limit, new_date):
+def update_budget_menu():
     try:
-        new_amount = float(new_amount)
-        if validate_amount(new_amount):
-            for budget in self.data["budget"]:
-                if budget["id"] == budget_id:
-                    budget["amount"] = new_amount
-                    budget["category"] = new_category
-                    budget["limit"] = new_limit
-                    budget["date"] = new_date
-                    save_data(self.data)
-                    print("Budget updated successfully.")
-                    return
-                print("Budget not found.")
+        index = int(input("Budget record number: ")) - 1
+        category = input("Category: ")
+        limit = float(input("New limit: "))
+        manager.update_budget(index, category, limit)
     except ValueError:
-        print("Invalid input. Please enter a valid number for the amount.")
+        print("Invalid input.")
 
-def delete_budget(self, budget_id):
-    for budget in self.data["budget"]:
-        if budget["id"] == budget_id:
-            self.data["budget"].remove(budget)
-
-            self.save_data()
-
-            print("Budget deleted.")
-            return
-
-    print("Budget not found.")
+def delete_budget_menu():
+    try:
+        index = int(input("Budget record number: ")) - 1
+        manager.delete_budget(index)
+    except ValueError:
+        print("Invalid input.")
 
 
 # Savings menu functions
 def add_savings_menu():
     try:
         amount = float(input("Enter savings amount: "))
+        category = input("Enter savings category: ")
         goal = input("Enter savings goal: ")
         date = input("Enter savings date (YYYY-MM-DD): ")
-        manager.add_savings(amount, goal)
+        manager.add_savings(amount, category, goal, date)
     except ValueError:
         print("Invalid input. Please enter a valid number for the amount.")
 
-def update_savings_menu(self, savings_id, new_amount, new_goal, new_date):
+def update_savings_menu():
     try:
-        new_amount = float(new_amount)
-        if validate_amount(new_amount):
-            for savings in self.data["savings"]:
-                if savings["id"] == savings_id:
-                    savings["amount"] = new_amount
-                    savings["goal"] = new_goal
-                    savings["date"] = new_date
-                    save_data(self.data)
-                    print("Savings updated successfully.")
-                    return
-                print("Savings not found.")
+        index = int(input("Savings record number: ")) - 1
+        amount = float(input("New amount: "))
+        goal = input("New goal: ")
+        manager.update_savings(index, amount, goal)
     except ValueError:
-        print("Invalid input. Please enter a valid number for the amount.")
+        print("Invalid input.")
 
-def delete_savings(self, savings_id):
-    for savings in self.data["savings"]:
-        if savings["id"] == savings_id:
-            self.data["savings"].remove(savings)
+def delete_savings_menu():
+    try:
+        index = int(input("Savings record number: ")) - 1
+        manager.delete_savings(index)
+    except ValueError:
+        print("Invalid input.")
 
-            self.save_data()
-
-            print("Savings deleted.")
-            return
-
-    print("Savings not found.")
 
 # Monthly summary menu functions
 def view_monthly_summary_menu():
@@ -204,29 +157,46 @@ def view_all_transactions():
         print(f"{savings['date']}: {format_currency(savings['amount'])} towards {savings['goal']}")
 
 
-
-def main():    
+def main():
     while True:
         display_menu()
-        choice = input("Enter your choice: ")
 
-        if choice == '1':
+        choice = input("\nEnter your choice: ")
+
+        if choice == "1":
             add_income_menu()
-        elif choice == '2':
+        elif choice == "2":
+            update_income_menu()
+        elif choice == "3":
+            delete_income_menu()
+        elif choice == "4":
             add_expense_menu()
-        elif choice == '3':
+        elif choice == "5":
+            update_expense_menu()
+        elif choice == "6":
+            delete_expense_menu()
+        elif choice == "7":
             set_budget_menu()
-        elif choice == '4':
+        elif choice == "8":
+            update_budget_menu()
+        elif choice == "9":
+            delete_budget_menu()
+        elif choice == "10":
             add_savings_menu()
-        elif choice == '5':
+        elif choice == "11":
+            update_savings_menu()
+        elif choice == "12":
+            delete_savings_menu()
+        elif choice == "13":
             view_monthly_summary_menu()
-        elif choice == '6':
+        elif choice == "14":
             view_all_transactions()
-        elif choice == '7':
-            print("Exiting the program. Goodbye!")
+        elif choice == "15":
+            print("Goodbye!")
             break
         else:
-            print("Invalid choice. Please try again.")
+            print("Invalid choice. Try again.")
+
 
 if __name__ == "__main__":
     main()
