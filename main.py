@@ -1,6 +1,14 @@
 from finance_manager import FinanceManager
 from utils import format_currency, save_data, validate_amount
 
+from rich.console import Console
+from rich.table import Table
+from rich.panel import Panel
+from rich import print
+import questionary
+
+console = Console()
+
 manager = FinanceManager()
 
 # Display menu function

@@ -1,6 +1,9 @@
 from models import Income, Expense, Budget, Savings
 from utils import (load_data, save_data, get_current_date, validate_amount, format_currency)
 
+from rich.console import Console
+console = Console()
+
 class FinanceManager:
     def __init__(self):
         self.file_path = 'data.json'
@@ -12,29 +15,29 @@ class FinanceManager:
             income = Income(amount, source, get_current_date())
             self.data['income'].append(income.to_dict())
             save_data(self.data)
-            print("Income added successfully.")
+            console.print("Income added successfully.")
         else:
-            print("Invalid amount. Please enter a positive number.")
+            console.print("Invalid amount. Please enter a positive number.")
 
     def update_income(self, index, amount, source):
         if index < 0 or index >= len(self.data["income"]):
-            print("Invalid income record.")
+            console.print("Invalid income record.")
             return
 
         if validate_amount(amount):
             self.data["income"][index]["amount"] = amount
             self.data["income"][index]["source"] = source
             save_data(self.data)
-            print("Income updated successfully.")
+            console.print("Income updated successfully.")
 
     def delete_income(self, index):
         if index < 0 or index >= len(self.data["income"]):
-            print("Invalid income record.")
+            console.print("Invalid income record.")
             return
 
         self.data["income"].pop(index)
         save_data(self.data)
-        print("Income deleted successfully.")
+        console.print("Income deleted successfully.")
 
 # Expense functions
     def add_expense(self, amount, category, description):
@@ -42,13 +45,13 @@ class FinanceManager:
             expense = Expense(amount, category, description, get_current_date())
             self.data['expenses'].append(expense.to_dict())
             save_data(self.data)
-            print("Expense added successfully.")
+            console.print("Expense added successfully.")
         else:
-            print("Invalid amount. Please enter a positive number.")
+            console.print("Invalid amount. Please enter a positive number.")
 
     def update_expense(self, index, amount, category, description):
         if index < 0 or index >= len(self.data["expenses"]):
-            print("Invalid expense record.")
+            console.print("Invalid expense record.")
             return
 
         if validate_amount(amount):
@@ -56,16 +59,16 @@ class FinanceManager:
             self.data["expenses"][index]["category"] = category
             self.data["expenses"][index]["description"] = description
             save_data(self.data)
-            print("Expense updated successfully.")
+            console.print("Expense updated successfully.")
 
     def delete_expense(self, index):
         if index < 0 or index >= len(self.data["expenses"]):
-            print("Invalid expense record.")
+            console.print("Invalid expense record.")
             return
 
         self.data["expenses"].pop(index)
         save_data(self.data)
-        print("Expense deleted successfully.")
+        console.print("Expense deleted successfully.")
 
 # Budget functions
     def set_budget(self, category, limit):
@@ -76,18 +79,18 @@ class FinanceManager:
         budget = Budget(category, limit)
         self.data["budget"].append(budget.to_dict())
         save_data(self.data)
-        print("Budget added successfully.")
+        console.print("Budget added successfully.")
 
     def update_budget(self, index, category, limit):
         if index < 0 or index >= len(self.data["budget"]):
-            print("Invalid budget record.")
+            console.print("Invalid budget record.")
             return
 
         if validate_amount(limit):
             self.data["budget"][index]["category"] = category
             self.data["budget"][index]["limit"] = limit
             save_data(self.data)
-            print("Budget updated successfully.")
+            console.print("Budget updated successfully.")
 
     def delete_budget(self, index):
         if index < 0 or index >= len(self.data["budget"]):
@@ -96,12 +99,12 @@ class FinanceManager:
 
         self.data["budget"].pop(index)
         save_data(self.data)
-        print("Budget deleted successfully.")
+        console.print("Budget deleted successfully.")
 
 # Savings functions
     def add_savings(self, amount, goal, date=None):
         if not validate_amount(amount):
-            print("Invalid amount.")
+            console.print("Invalid amount.")
             return
 
         if date is None:
@@ -110,27 +113,27 @@ class FinanceManager:
         savings = Savings(amount, goal, date)
         self.data["savings"].append(savings.to_dict())
         save_data(self.data)
-        print("Savings added successfully.")
+        console.print("Savings added successfully.")
 
     def update_savings(self, index, amount, goal):
         if index < 0 or index >= len(self.data["savings"]):
-            print("Invalid savings record.")
+            console.print("Invalid savings record.")
             return
 
         if validate_amount(amount):
             self.data["savings"][index]["amount"] = amount
             self.data["savings"][index]["goal"] = goal
             save_data(self.data)
-            print("Savings updated successfully.")
+            console.print("Savings updated successfully.")
 
     def delete_savings(self, index):
         if index < 0 or index >= len(self.data["savings"]):
-            print("Invalid savings record.")
+            console.print("Invalid savings record.")
             return
 
         self.data["savings"].pop(index)
         save_data(self.data)
-        print("Savings deleted successfully.")
+        console.print("Savings deleted successfully.")
 
 # Totals, categories and  summaries functions
     def get_total_income(self):
