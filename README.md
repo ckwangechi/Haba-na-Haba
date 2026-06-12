@@ -61,6 +61,8 @@ Haba na Haba CLI provides a simple solution by allowing users to record transact
 * JSON
 * Object-Oriented Programming (OOP)
 * Command Line Interface (CLI)
+* Rich
+* Questionary
 
 ---
 
@@ -140,19 +142,26 @@ Provides helper functions including:
 
 ## Installation
 
-Clone the repository:
-
+1. Clone the repository:
+```bash
 git clone https://github.com/ckwangechi/Haba-na-Haba.git
+```
 
-Navigate into the project folder:
-
-
+2. Navigate into the project folder:
+```bash
 cd haba-na-haba
+```
 
-Run the application:
+3. Install the required packages:
+```bash
+pip install -r requirements.txt
 
+```
+
+4. Run the application:
+```bash
 python main.py
-
+```
 ---
 
 ## Menu Options
