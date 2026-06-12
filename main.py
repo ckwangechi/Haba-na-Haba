@@ -7,6 +7,9 @@ from rich.panel import Panel
 from rich import print
 import questionary
 
+
+
+
 console = Console()
 
 manager = FinanceManager()
